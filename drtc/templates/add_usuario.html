@@ -1,0 +1,10 @@
+<form action='/test' method='post' class=''>
+	<fielset>
+		<legend></legend>
+		{% csrf_token %}
+
+		{{ form }}
+	</fielset>
+	<input type='submit' value='Guardar'>
+</form>
+    

@@ -1,0 +1,281 @@
+
+{% extends "base.html" %}
+{%block titulo-page %} Reguistrador | DRTC-Examen {% endblock %}
+
+
+{% block staticinicial %}
+  <script src="../static/js/registrador.js"></script>
+{% endblock %}
+ 
+
+{%block nav-page %}
+
+     <div class="header">
+
+      <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">REGUISTRADOR - Examen</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          
+          <div class="navbar-form navbar-left"  >
+            {% csrf_token %}
+            <div class="form-group"> 
+              <input id="dni" type="number" class="form-control" placeholder="Buscar DNI">
+            </div>
+            
+            <button  id="busca"  name="buscar" class="btn btn-default btn-success">Buscar</button>
+ 
+            <button  id="reguistra" data-toggle="modal" href="#ModalCiudadano"  type="button" name="reguistrar" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> Reguistro</button> 
+            
+            <button  id="programa"  name="programar" class="btn btn-default btn-primary">Programar</button>
+          </div>
+
+          <ul class="nav navbar-nav navbar-right"> 
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <b class="glyphicon glyphicon-cog"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Contraseña</a></li>
+                <li><a href="#">Otros</a></li>
+                <li><a href="#">Guia</a></li>                 
+                <li><a href="{% url 'v_salir' %}">Salir</a></li>                 
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
+    </div>
+{% endblock %}
+{%block content-page %}
+
+
+    <div class="jumbotron">
+      
+
+
+    <!-- buscar - reguistrar - recat - programar -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Formulario</h4>
+          </div>
+          <div class="modal-body">
+
+            <!-- Aviso de intentos -->
+            <div class="alert alert-info">Usted tiene X Intentos</div>
+            <!-- Fin Aviso de Intentos -->
+                  <form class="form-horizontal">
+	 
+            				<div class="row">
+            				  <div class="col-md-6">
+            					  
+                                <div class="form-group"> 
+                                  <label class="col-lg-5 control-label">N° Reguistro</label>
+                                  <div class="col-lg-5">
+                                    <input type="text" class="form-control" id="numero-reguistro" placeholder="Numero de Reguistro XYZ" >
+                                  </div>
+                                </div>
+
+                                <div class="form-group"> 
+                                  <label class="col-lg-5 control-label">Nombres</label>
+                                  <div class="col-lg-5">
+                                    <input type="text" class="form-control" id="nombres" placeholder="Nombres" >
+                                  </div>
+                                </div>
+
+                                <div class="form-group"> 
+                                  <label class="col-lg-5 control-label">Apellidos</label>
+                                  <div class="col-lg-5">
+                                    <input type="text" class="form-control" id="apellidos" placeholder="Apellidos" >
+                                  </div>
+                                </div>
+
+                                <div class="form-group"> 
+                                  <label class="col-lg-5 control-label">Clinica</label>
+                                  <div class="col-lg-5">
+                                    <select class="form-control" id="clinica" >
+                                      <option>CLINICA X</option>
+                                      <option>CLINICA Y</option>
+                                      <option>CLINICA Z</option>
+                                    </select>
+                                  </div>
+                                </div>
+
+                                <div class="form-group"> 
+                                  <label class="col-lg-5 control-label">Examen Medico</label>
+                                  <div class="col-lg-5">
+                                    <input type="date" class="form-control" id="examen-medico" >
+                                  </div>
+                                </div>
+
+                                <div class="form-group"> 
+                                  <label class="col-lg-5 control-label">Escuelas</label>
+                                  <div class="col-lg-5">
+                                    <select class="form-control" id="escuelas" >
+                                      <option>Escuela X</option>
+                                      <option>Escuela Y</option>
+                                      <option>Escuela Z</option>
+                                    </select>
+                                  </div>
+                                </div>
+
+                                <div class="form-group"> 
+                                  <label class="col-lg-5 control-label">DNI</label>
+                                  <div class="col-lg-5">
+                                    <input type="text" class="form-control" id="dni" placeholder="Numero de DNI" >
+                                  </div>
+                                </div>
+
+            				  </div>
+              
+            				  <div class="col-md-6">
+
+                                <div class="form-group"> 
+                                  <label class="col-lg-5 control-label">Telefono</label>
+                                  <div class="col-lg-5">
+                                    <input type="text" class="form-control" id="telefono" placeholder="Telefono" >
+                                  </div>
+                                </div>
+
+                                <div class="form-group"> 
+                                  <label class="col-lg-5 control-label">Movil</label>
+                                  <div class="col-lg-5">
+                                    <input type="text" class="form-control" id="movil" placeholder="Movil" >
+                                  </div>
+                                </div>
+
+                                <div class="form-group"> 
+                                  <label class="col-lg-5 control-label">Ciudad</label>
+                                  <div class="col-lg-5">
+                                    <select class="form-control" id="ciudad" >
+                                      <option>CIUDAD X</option>
+                                      <option>CIUDAD Y</option>
+                                      <option>CIUDAD Z</option>
+                                    </select>
+                                  </div>
+                                </div>
+
+                                <div class="form-group"> 
+                                  <label class="col-lg-5 control-label">Asunto</label>
+                                  <div class="col-lg-5">
+                                    <input type="text" class="form-control" id="asunto" placeholder="Asunto" >
+                                  </div>
+                                </div>
+
+                                <div class="form-group"> 
+                                  <label class="col-lg-5 control-label">Email</label>
+                                  <div class="col-lg-5">
+                                    <input type="text" class="form-control" id="email" placeholder="Email" >
+                                  </div>
+                                </div>
+
+                                <!-- Para Programacion de un ON/ONJ  -->
+                                <div class="form-group">
+                                  <label class="col-lg-5 control-label">Fecha Examen</label>
+                                  <div class="col-lg-5">
+                                    <input type="date" class="form-control" id="examen-fecha" >
+                                  </div>
+                                </div>
+                                
+                                <div class="radio">
+                                  <label>
+                                    <input type="radio" name="opciones-examen" id="opcion-examen-1" value="manejo" >
+                                    Manejo
+                                  </label>
+                                </div>
+
+                                <div class="radio">
+                                  <label>
+                                    <input type="radio" name="opciones-examen" id="opcion-examen-2" value="reglas" >
+                                    Reglas
+                                  </label>
+                                </div>
+                                <!--  -->
+
+            				  </div>
+            				</div>
+                  </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Fin formulario -->
+<!-- -->
+
+<!-- Modal Ciudadano -->
+<div class="modal fade" id="ModalCiudadano" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Agrega un ciudadano</h4>
+        </div>
+        <form class="form-horizontal" role="form" method="POST" action="">
+        <div class="modal-body">
+          {% csrf_token %}
+           
+          {% for campo in Form_Ciu %}
+          <div class="form-group">
+            <label class="col-lg-4 control-label">{{campo.label_tag}}</label>
+            <div class="col-lg-6">
+              {{campo}}
+            </div>
+          </div>
+          {% endfor %}
+
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary">
+            <span class="glyphicon glyphicon-check"></span> Agregar
+          </button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<!-- Modal Ciudadano -->
+
+ 
+
+
+
+ 
+<div id="respuesta">
+</div>
+<div id="respuestaprogramacion">
+</div>
+
+
+
+  <div class="alert alert-info">
+    <h3>Nuestra Infor</h3>
+    <p>
+      Buscar      > Busca por DNI<br/>
+      Reguistrar  > Crea un nuevo Ciudadano<br/>
+      Recat.      > Programa Ex. Manejo con los datos INTERNOS<br/>
+      Programar   > Programa nuevo Ex. Reglas ( ON /ONJ ) ON > 3opc / ONJ > 2-1 opc Programar/Imprimir<br/>
+    </p>
+  </div>
+
+
+
+{% endblock %}

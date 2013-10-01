@@ -1,0 +1,287 @@
+
+{% extends "base.html" %}
+{%block titulo-page %} Evaluador | DRTC-Examen {% endblock %}
+
+{%block nav-page %}
+    <div class="header">
+
+      <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">EVALUADOR - Examen</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav navbar-right"> 
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <b class="glyphicon glyphicon-cog"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Contraseña</a></li>
+                <li><a href="#">Otros</a></li>
+                <li><a href="#">Guia</a></li>       
+                <li><a href="{% url 'v_salir' %}">Salir</a></li>          
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
+{% endblock %}
+ 
+{%block content-page %}
+
+
+    </div>
+
+    <div class="jumbotron"> 
+      {% for i in evaluados %}
+        {{i.fecha}}
+      {% endfor %}
+      <div>
+        <form class="form-inline" role="form">
+          <div class="form-group">
+            <label class="sr-only">Buscar por Fecha</label>
+            <input type="date" class="form-control " id="buscar-fecha" name="buscar-fecha">            
+          </div>          
+          <button type="submit" class="btn btn-default btn-success" >Buscar</button>
+        </form>
+      <div>
+
+
+
+<!-- -->
+
+
+<div class="bs-example bs-example-tabs">
+      <ul id="myTab" class="nav nav-tabs">
+        <li class="active"><a href="#grupo-1 " data-toggle="tab">Grupo - 1</a></li>
+        <li><a href="#grupo-2" data-toggle="tab">Grupo - 2</a></li>
+        <li><a href="#grupo-3" data-toggle="tab">Grupo - 3</a></li>
+         
+      </ul>
+      <div id="myTabContent" class="tab-content">
+
+        <div class="tab-pane fade active in" id="grupo-1">
+          <div id="reporte">  
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>DNI</th> 
+                    <th>Alumno</th> 
+                    <th>Estado</th> 
+                    <th>Nota</th> 
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>70416528 </td> 
+                    <td>Jhoel CQ </td> 
+                    <td>Aprobado</td> 
+                    <td>40</td> 
+                  </tr> 
+                   <tr>
+                    <td>2</td>
+                    <td>70416528 </td> 
+                    <td>Jhoel CQ </td> 
+                    <td>Desaprobado</td> 
+                    <td>10</td> 
+                  </tr> 
+                  <tr>
+                    <td>3</td>
+                    <td>70416528 </td> 
+                    <td>Jhoel CQ </td> 
+                    <td>Aprobado</td> 
+                    <td>40</td> 
+                  </tr> 
+                   <tr>
+                    <td>4</td>
+                    <td>70416528 </td> 
+                    <td>Jhoel CQ </td> 
+                    <td>Desaprobado</td> 
+                    <td>10</td> 
+                  </tr> 
+                  <tr>
+                    <td>5</td>
+                    <td>70416528 </td> 
+                    <td>Jhoel CQ </td> 
+                    <td>Aprobado</td> 
+                    <td>40</td> 
+                  </tr> 
+                   <tr>
+                    <td>6</td>
+                    <td>70416528 </td> 
+                    <td>Jhoel CQ </td> 
+                    <td>Desaprobado</td> 
+                    <td>10</td> 
+                  </tr>
+                  <tr>
+                    <td>7</td>
+                    <td>70416528 </td> 
+                    <td>Jhoel CQ </td> 
+                    <td>Desaprobado</td> 
+                    <td>10</td> 
+                  </tr>
+                  <tr>
+                    <td>8</td>
+                    <td>70416528 </td> 
+                    <td>Jhoel CQ </td> 
+                    <td>Desaprobado</td> 
+                    <td>10</td> 
+                  </tr>
+                  <tr>
+                    <td>9</td>
+                    <td>70416528 </td> 
+                    <td>Jhoel CQ </td> 
+                    <td>Desaprobado</td> 
+                    <td>10</td> 
+                  </tr>
+                  <tr>
+                    <td>10</td>
+                    <td>70416528 </td> 
+                    <td>Jhoel CQ </td> 
+                    <td>Desaprobado</td> 
+                    <td>10</td> 
+                  </tr> 
+                  
+                </tbody>
+              </table>
+            </div>
+          </div> 
+        </div>
+
+        <div class="tab-pane fade " id="grupo-2">
+          <div id="reporte">  
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>DNI</th> 
+                    <th>Alumno</th> 
+                    <th>Estado</th> 
+                    <th>Nota</th> 
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>70416528 </td> 
+                    <td>Jhoel CQ </td> 
+                    <td>Aprobado</td> 
+                    <td>40</td> 
+                  </tr> 
+                   <tr>
+                    <td>2</td>
+                    <td>70416528 </td> 
+                    <td>Jhoel CQ </td> 
+                    <td>Desaprobado</td> 
+                    <td>10</td> 
+                  </tr> 
+                  <tr>
+                    <td>3</td>
+                    <td>70416528 </td> 
+                    <td>Jhoel CQ </td> 
+                    <td>Aprobado</td> 
+                    <td>40</td> 
+                  </tr> 
+                   <tr>
+                    <td>4</td>
+                    <td>70416528 </td> 
+                    <td>Jhoel CQ </td> 
+                    <td>Desaprobado</td> 
+                    <td>10</td> 
+                  </tr> 
+                  <tr>
+                    <td>5</td>
+                    <td>70416528 </td> 
+                    <td>Jhoel CQ </td> 
+                    <td>Aprobado</td> 
+                    <td>40</td> 
+                  </tr>  
+                </tbody>
+              </table>
+            </div>
+          </div> 
+        </div>
+
+        <div class="tab-pane fade " id="grupo-3">
+          <div id="reporte">  
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>DNI</th> 
+                    <th>Alumno</th> 
+                    <th>Estado</th> 
+                    <th>Nota</th> 
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>70416528 </td> 
+                    <td>Jhoel CQ </td> 
+                    <td>Aprobado</td> 
+                    <td>40</td> 
+                  </tr> 
+                   <tr>
+                    <td>2</td>
+                    <td>70416528 </td> 
+                    <td>Jhoel CQ </td> 
+                    <td>Desaprobado</td> 
+                    <td>10</td> 
+                  </tr>   
+                </tbody>
+              </table>
+            </div>
+          </div> 
+        </div>
+         
+      </div>
+    </div>
+
+  <script>
+  $('#myTab a').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+  })
+  </script>
+
+
+<!-- -->
+
+       
+{% endblock %}
+
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p>Desarrollado por <span class="cubcode"> <a target="_blank" href="cubcode.com">CubCode</a></span>, Todos los Derechos Reservados</p>
+      </div>      
+    </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../static/js/bootstrap.min.js"></script>
+
+  </body>
+</html>

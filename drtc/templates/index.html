@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{%block titulo-page %} Inicio | DRTC-Examen {% endblock %}
+{%block msg-page %} {{mensaje}}{% endblock %}
+
+{%block nav-page %}
+<nav class="navbar navbar-default" role="navigation">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="/">DRTC-EMR</a>
+  </div>
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class='nav navbar-nav '>
+            <li><a href="http://cubcode.com">DRTC</a></li>
+            <li><a href="http://cubcode.com">TEST</a></li>
+    </ul>
+        
+    <ul class="nav navbar-nav navbar-right">
+      <li>
+              <div class=''>
+                <form class="form-inline" method='post' action='/ingreso' >
+                      {% csrf_token %}
+                      <div class="form-group">
+                        <input type="text" name='usuario' class="form-control" placeholder="Usuario" required>
+                      </div>
+                      <div class="form-group ">
+                         <input type="password" name='password' class="form-control" placeholder="Contraseña" required>
+                      </div> 
+                      <button class="btn btn-default" type="submit">Ingresar</button>
+                </form>
+              </div>
+      </li>
+
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Info<b class="caret"></b></a>           
+        <ul class="dropdown-menu">
+         <li><a href="/ciudadano">Ciudadano</a></li>
+          <li><a href="/registrador">Reguistrador</a></li>
+          <li><a href="/evaluador">Evaluador</a></li>
+          <li><a href="/administrador">Administrador</a></li>
+        
+
+          <li><a target="_blank" href="http://cubcode.com">Developed by CubCode</a></li>
+        </ul>
+      </li>
+
+    </ul>
+        
+
+  </div>
+</nav>
+{% endblock %}
+
+
+{%block content-page %}
+
+  <hr>
+  <form class="form-buscar" method='post'>
+    {% csrf_token %}
+    <input type="text" class="form-control" placeholder="Buscar N° Examen" autofocus >
+    <br/>
+    <button class="btn btn-lg btn-success btn-block" type="submit">Buscar
+    <span class="glyphicon glyphicon-search"></span>
+    </button>
+  </form>
+  <hr>
+
+{% endblock %}
+
+
