@@ -26,19 +26,26 @@ function ver_datos(data){
   var ul = $('#respuesta ul');
   ul.html('');
   $('#dni').val('');
-  $.each(data.datos, function(i, elemento){
-    $(
-      '<li>'
-      +elemento.nombres
-      + ' '
-      + elemento.apellidos
-      + ' '
-      + elemento.telefono
-      + ' '
-      + elemento.email
-      + ' '
-      + elemento.direccion       
-      +'</li>'
-      ).appendTo(ul);
+
+  $.each(data.datos, function(i, elemento)){
+    if (elemento.mensaje == 'no'){
+      $(
+        '<li>'
+        +elemento.mensaje
+        + ' '
+        + elemento.apellidos
+        + ' '
+        + elemento.telefono
+        + ' '
+        + elemento.email
+        + ' '
+        + elemento.direccion       
+        +'</li>'
+        ).appendTo(ul);
+    }
+    else (elemento.mensaje == 'si'){
+      $('<li>NO Exiiiistes :P </li>').appendTo(ul);
+    }
+  }
   });
 }

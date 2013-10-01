@@ -88,16 +88,50 @@ function ver_datos(data){
   hts.html('');
   $('#dni').val('');
   $.each(data.datos, function(i, elemento){ 
-    $(
-      "<div class='panel panel-default'>"
-      +"<div class='panel-heading'>"
-      +"<h3 class='panel-title'>"
-      +elemento.nombres+ " " +elemento.apellidos
-      +"</h3>"
-      +"</div>"
-      +"<div class='panel-body'>"
-      +"Email: "+elemento.email+ " Telefono: " +elemento.telefono
-      +"</div>"
-      +"</div>").appendTo(hts);
+    
   });
 }
+
+function ver_datos(data){
+  var hts = $('#respuesta');
+  hts.html('');
+  $('#dni').val('');
+  $.each(data.datos, function(i, elemento){ 
+
+    if(elemento.mensaje=='si'){
+      $(
+        "<div class='panel panel-default'>"
+        +"<div class='panel-heading'>"
+        +"<h3 class='panel-title'>"
+        +elemento.nombres+ " " +elemento.apellidos
+        +"</h3>"
+        +"</div>"
+        +"<div class='panel-body'>"
+        +"Email: "+elemento.email+ " Telefono: " +elemento.telefono
+        +"</div>"
+        +"</div>").appendTo(hts);
+    }
+    else{
+      $(
+        "<div class='panel panel-default'>"
+        +"<div class='panel-heading'>"
+        +"<h3 class='panel-title'>"
+        +"Bienvenido a DRTC-Junin, Usted realizara un Tramite Nuevo"
+        +"</h3>"
+        +"</div>"
+        +"<div class='panel-body'>"
+        +"<button id='reguistra' data-toggle='modal'"
+        +" href='#ModalCiudadano'  type='button' name='reguistrar' "
+        +" class='btn btn-default btn-primary'>"
+        +" <span class='glyphicon glyphicon-plus-sign'></span>"
+        +" Reguistro"
+        +"</button>"
+        +"</div></div>").appendTo(hts);
+    }
+
+
+  });
+}
+
+
+

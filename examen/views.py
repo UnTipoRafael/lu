@@ -117,17 +117,31 @@ def programa_dni(request,ndni):
 
 def busca_dni(request,ndni):
 	if request.is_ajax(): 
+
 		datosdni = Ciudadano.objects.filter(dni=ndni)
-		
-		data = list() 
-		for dato in datosdni:
+		mensaje = ''
+		data = list()
+		q = len(datosdni)
+
+		if q == 1:
+			mensaje = 'si'
+			for dato in datosdni:
+				data.append({  
+					'mensaje': mensaje,
+					'nombres': dato.nombres,
+					'apellidos':dato.apellidos,
+					'telefono':dato.telefono,
+					'email':dato.email,
+					'direccion':dato.direccion,
+					})
+		else:
+			mensaje = 'no'
 			data.append({  
-				'nombres': dato.nombres,
-				'apellidos':dato.apellidos,
-				'telefono':dato.telefono,
-				'email':dato.email,
-				'direccion':dato.direccion,
+				'mensaje': mensaje,
 				})
+
+		 
+
 
 		return HttpResponse(
 			json.dumps({'datos':data}),
