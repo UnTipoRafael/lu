@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
-from datetime import datetime
+from datetime import datetime, date
 from django.contrib.auth.models import User
 from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
@@ -8,7 +8,7 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect,HttpResponse, Http404
 from django.contrib.auth.decorators import login_required
 #modelos
-from examen.models import Ciudadano, Examen, Programacion
+from examen.models import Ciudadano, Examen, Programacion, Registro
 #form
 from examen.form import form_login, form_user, CiudadanoForm , ProgramacionForm
 
@@ -115,25 +115,81 @@ def programa_dni(request,ndni):
 	else:
 		raise Http404	
 
+
+"""
+for i in p:
+...     if (i.fecha > date.today()):
+...         print '1 fe es mayor'
+...     elif(date.today()>i.fecha):
+...         print '2 fe es mayor'
+...     else:
+...         print 'error'
+
+"""
+
 def busca_dni(request,ndni):
 	if request.is_ajax(): 
-
+		# Busqueda de un ciudadano aqui mediante el DNI
 		datosdni = Ciudadano.objects.filter(dni=ndni)
 		mensaje = ''
 		data = list()
-		q = len(datosdni)
+		# Esta cantidad debe ser 1 y se verifica que se tiene a un usuario
+		# con el que trabajaremos y buscaremos datos si no enviar mensaje
+		# de que no se encuentra y se mandara al reguistro
+		q = len(datosdni) # 1/0 
 
 		if q == 1:
 			mensaje = 'si'
 			for dato in datosdni:
+				pp = Programacion.objects.filter(id_ciudadano=dato.id)
+				if (len(pp) == 0):
+					#no existe algo programado mandar boton NExpediente
+					mensaje = 'no existe y BOTON NEXPEDIENTE'
+					data.append({  
+						'mensaje': mensaje,
+					})
+				elif(len(pp)>0):
+					#existen muchos rows programados cogemos el -pk[0] (ultimo)
+					ultimo = pp.order_by('-pk')[0]
+					intentos = ultimo.intentos
+					idpro = ultimo.pk
+					pr = Registro.objects.filter(id_programacion=idpro)
+					for i in pr:
+						if (i.fecha_examen_medico > date.today()):
+							# Su examen aun es valido
+							if(intentos == 0):
+								# datos de su ultimo examen 
+								# y botonNExpediente
+								mensaje = 'ult Intento+fecha de examen / BOTON NEXPEDIENTE'
+								data.append({  
+									'mensaje': mensaje,
+								})
+							elif(intentos >=1 & intentos <=2 ):
+								# Dato  examen 
+								# y Boton NRegistros
+								mensaje = 'tienes 2/1 intentos datos/ NREGISTRO'
+								data.append({  
+									'mensaje': mensaje,
+								})
+
+						elif(i.fecha_examen_medico < date.today() or i.fecha_examen_medico == date.today() ):
+							# Su examen ya vencio/ NExpediente
+							mensaje = 'EXAMEN MEDICO VENCIO / NEXPEDIENTE'
+							data.append({  
+								'mensaje': mensaje,
+							})
+
+			"""
+			for dato in datosdni:				
 				data.append({  
 					'mensaje': mensaje,
-					'nombres': dato.nombres,
-					'apellidos':dato.apellidos,
-					'telefono':dato.telefono,
-					'email':dato.email,
-					'direccion':dato.direccion,
+					'idcito': dato.id,
+					'fechaexamen': str(pp.fecha),
+					'nombrecompleto': dato.nombres+" "+dato.apellidos,
 					})
+			"""
+
+
 		else:
 			mensaje = 'no'
 			data.append({  

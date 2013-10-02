@@ -78,17 +78,6 @@ class Ciudadano(models.Model):
 	def __unicode__(self):
 		return self.nombres
 
-class Registro(models.Model): 
-	numero_registro		=models.IntegerField()
-	numero_expediente	=models.IntegerField()
-	id_ciudadano		=models.ForeignKey(Ciudadano)
-	id_usuario			=models.ForeignKey(Perfil)
-	id_clinica			=models.ForeignKey(Clinica)
-	fecha_examen_medico =models.DateField()
-	asunto				=models.CharField(max_length=10)
-	
-	def __unicode__(self):
-		return str(self.numero_registro)
 
 
 class Programacion(models.Model):
@@ -100,7 +89,7 @@ class Programacion(models.Model):
     )
 
 	id_ciudadano		=models.ForeignKey(Ciudadano)
-	fecha 				=models.DateField()
+	fecha 				=models.DateField(verbose_name='Fecha para el Examen')
 	intentos			=models.IntegerField()
 	id_lugar			=models.ForeignKey(Lugar)
 	tipo				=models.CharField(max_length=2,
@@ -109,7 +98,21 @@ class Programacion(models.Model):
 	fecha_log			= models.DateTimeField(auto_now=True)
 
 	def __unicode__(self):
-		return str(self.id_ciudadano)
+		return str(self.id_ciudadano)+" "+str(self.intentos)+" Intento(s)"
+
+class Registro(models.Model): 
+	id_programacion 	=models.ForeignKey(Programacion)
+	numero_registro		=models.IntegerField()
+	numero_expediente	=models.IntegerField()
+	id_ciudadano		=models.ForeignKey(Ciudadano)
+	id_usuario			=models.ForeignKey(Perfil)
+	id_clinica			=models.ForeignKey(Clinica)
+	fecha_examen_medico =models.DateField()
+	asunto				=models.CharField(max_length=10)
+	
+	def __unicode__(self):
+		return str(self.numero_registro)+" > "+str(self.asunto)
+
 
 class Preguntas(models.Model):
 	manejo= 'MA'

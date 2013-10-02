@@ -92,6 +92,7 @@ function ver_datos(data){
   });
 }
 
+/*
 function ver_datos(data){
   var hts = $('#respuesta');
   hts.html('');
@@ -103,11 +104,11 @@ function ver_datos(data){
         "<div class='panel panel-default'>"
         +"<div class='panel-heading'>"
         +"<h3 class='panel-title'>"
-        +elemento.nombres+ " " +elemento.apellidos
+        +elemento.nombrecompleto
         +"</h3>"
         +"</div>"
         +"<div class='panel-body'>"
-        +"Email: "+elemento.email+ " Telefono: " +elemento.telefono
+        +"Su Fecha de Examen de Reglas es: "+elemento.fechaexamen
         +"</div>"
         +"</div>").appendTo(hts);
     }
@@ -130,6 +131,28 @@ function ver_datos(data){
     }
 
 
+  });
+}
+
+*/
+
+
+function ver_datos(data){
+  var hts = $('#respuesta');
+  hts.html('');
+  $('#dni').val('');
+  $.each(data.datos, function(i, elemento){ 
+      $(
+        "<div class='panel panel-default'>"
+        +"<div class='panel-heading'>"
+        +"<h3 class='panel-title'>"
+        +elemento.mensaje
+        +"</h3>"
+        +"</div>"
+        +"<div class='panel-body'>" 
+        +"</div>"
+        +"</div>").appendTo(hts);
+    
   });
 }
 
