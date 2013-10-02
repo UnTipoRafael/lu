@@ -141,12 +141,16 @@ def busca_dni(request,ndni):
 		if q == 1:
 			mensaje = 'si'
 			for dato in datosdni:
+				nombrecompleto = dato.nombres+' '+dato.apellidos
+
 				pp = Programacion.objects.filter(id_ciudadano=dato.id)
 				if (len(pp) == 0):
 					#no existe algo programado mandar boton NExpediente
-					mensaje = 'no existe y BOTON NEXPEDIENTE'
+					
+					estado = 'a'
 					data.append({  
-						'mensaje': mensaje,
+						'estado':estado,
+						'nombrecompleto': nombrecompleto,
 					})
 				elif(len(pp)>0):
 					#existen muchos rows programados cogemos el -pk[0] (ultimo)
@@ -160,23 +164,35 @@ def busca_dni(request,ndni):
 							if(intentos == 0):
 								# datos de su ultimo examen 
 								# y botonNExpediente
-								mensaje = 'ult Intento+fecha de examen / BOTON NEXPEDIENTE'
+								
+								fechaexamen = str(ultimo.fecha)
+								estado = 'b'
 								data.append({  
-									'mensaje': mensaje,
+									'estado':estado,
+									'nombrecompleto':nombrecompleto,
+									'intentos':str(intentos),
+									'numeroexpediente':str(i.numero_expediente),
+									
 								})
 							elif(intentos >=1 & intentos <=2 ):
 								# Dato  examen 
 								# y Boton NRegistros
-								mensaje = 'tienes 2/1 intentos datos/ NREGISTRO'
+								
+								estado = 'c'
 								data.append({  
-									'mensaje': mensaje,
+									'estado':estado,
+									'nombrecompleto':nombrecompleto,
+									'intentos':str(intentos),
+									'numeroexpediente':str(i.numero_expediente),
+									
 								})
 
 						elif(i.fecha_examen_medico < date.today() or i.fecha_examen_medico == date.today() ):
 							# Su examen ya vencio/ NExpediente
-							mensaje = 'EXAMEN MEDICO VENCIO / NEXPEDIENTE'
+							estado = 'd'
 							data.append({  
-								'mensaje': mensaje,
+								'estado':estado,
+								'nombrecompleto':nombrecompleto,
 							})
 
 			"""
@@ -192,7 +208,9 @@ def busca_dni(request,ndni):
 
 		else:
 			mensaje = 'no'
+			estado = 'e'
 			data.append({  
+				'estado':estado,
 				'mensaje': mensaje,
 				})
 

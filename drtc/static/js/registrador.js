@@ -141,17 +141,112 @@ function ver_datos(data){
   var hts = $('#respuesta');
   hts.html('');
   $('#dni').val('');
-  $.each(data.datos, function(i, elemento){ 
+  $.each(data.datos, function(i, elemento){
+
+    if(elemento.estado=='a'){
       $(
         "<div class='panel panel-default'>"
         +"<div class='panel-heading'>"
         +"<h3 class='panel-title'>"
-        +elemento.mensaje
+        +elemento.nombrecompleto
         +"</h3>"
         +"</div>"
         +"<div class='panel-body'>" 
+        +'<p>Usted no tiene ningun Expediente inicie uno nuevo aqui.</p>'
+        +"<button id='reguistra' data-toggle='modal'"
+        +" href='#ModalCiudadano'  type='button' name='reguistrar' "
+        +" class='btn btn-default btn-primary'>"
+        +" <span class='glyphicon glyphicon-file'></span>"
+        +" Nuevo Expediente"
+        +"</button>"
         +"</div>"
-        +"</div>").appendTo(hts);
+        +"</div>"
+        ).appendTo(hts)
+    } 
+    else if(elemento.estado=='b'){
+      $(
+        "<div class='panel panel-default'>"
+        +"<div class='panel-heading'>"
+        +"<h3 class='panel-title'>"
+        +elemento.nombrecompleto
+        +"</h3>"
+        +"</div>"
+        +"<div class='panel-body'>"
+        +"N.Expediente: "+elemento.numeroexpediente+"<br/>"
+        +"Intento: "+elemento.intentos+"<br/>"
+        +"<button id='reguistra' data-toggle='modal'"
+        +" href='#ModalCiudadano'  type='button' name='reguistrar' "
+        +" class='btn btn-default btn-primary'>"
+        +" <span class='glyphicon glyphicon-file'></span>"
+        +" Nuevo Expediente"
+        +"</button>"
+        +"</div>"
+        +"</div>"
+        ).appendTo(hts)
+    } 
+    else if(elemento.estado=='c'){
+      $(
+        "<div class='panel panel-default'>"
+        +"<div class='panel-heading'>"
+        +"<h3 class='panel-title'>"
+        +elemento.nombrecompleto
+        +"</h3>"
+        +"</div>"
+        +"<div class='panel-body'>"
+        +"N.Expediente: "+elemento.numeroexpediente+"<br/>"
+        +"Intentos: "+elemento.intentos+"<br/>"
+        +"<button id='reguistra' data-toggle='modal'"
+        +" href='#ModalCiudadano'  type='button' name='reguistrar' "
+        +" class='btn btn-default btn-primary'>"
+        +" <span class='glyphicon glyphicon-file'></span>"
+        +" Nuevo Registro"
+        +"</button>"
+        +"</div>"
+        +"</div>"
+        ).appendTo(hts)
+    } 
+    else if(elemento.estado=='d'){
+      $(
+        "<div class='panel panel-default'>"
+        +"<div class='panel-heading'>"
+        +"<h3 class='panel-title'>"
+        +elemento.nombrecompleto
+        +"</h3>"
+        +"</div>"
+        +"<div class='panel-body'>" 
+        +'<p>Su Examen Medico Vencio</p>'
+        +"<button id='reguistra' data-toggle='modal'"
+        +" href='#ModalCiudadano'  type='button' name='reguistrar' "
+        +" class='btn btn-default btn-primary'>"
+        +" <span class='glyphicon glyphicon-file'></span>"
+        +" Nuevo Expediente"
+        +"</button>"
+        +"</div>"
+        +"</div>"
+        ).appendTo(hts)
+    } 
+    else if(elemento.estado=='e'){
+      $(
+        "<div class='panel panel-default'>"
+        +"<div class='panel-heading'>"
+        +"<h3 class='panel-title'>"
+        +"Bienvenido a DRTC-Junin, Usted realizara un Tramite Nuevo"
+        +"</h3>"
+        +"</div>"
+        +"<div class='panel-body'>"
+        +"<button id='reguistra' data-toggle='modal'"
+        +" href='#ModalCiudadano'  type='button' name='reguistrar' "
+        +" class='btn btn-default btn-primary'>"
+        +" <span class='glyphicon glyphicon-plus-sign'></span>"
+        +" Reguistro"
+        +"</button>"
+        +"</div></div>").appendTo(hts);
+    }
+    else{
+      $('<p>ERROR</p>').appendTo(hts)
+    }
+
+;
     
   });
 }
