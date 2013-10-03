@@ -1,0 +1,76 @@
+
+{% extends "base.html" %}
+{%block titulo-page %} Reguistrador | DRTC-Examen {% endblock %}
+
+
+{% block staticinicial %}
+  <script src="../static/js/actualizardatos.js"></script>
+{% endblock %}
+ 
+
+{%block nav-page %}
+
+     <div class="header">
+
+      <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">REGUISTRADOR - Examen</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          
+          <div class="nav navbar-nav">              
+            <li><a href={% url 'v_inicio' %}>Inicio</a></li>
+            <li class="active"><a href="#">Actualizar Datos</a></li>
+            <li><a href="#">Reportes</a></li>
+            <li><a href="#">Buscar</a></li>
+          </div>
+
+          <ul class="nav navbar-nav navbar-right"> 
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <b class="glyphicon glyphicon-cog"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Contraseña</a></li>
+                <li><a href="#">Otros</a></li>
+                <li><a href="#">Guia</a></li>                 
+                <li><a href="{% url 'v_salir' %}">Salir</a></li>                 
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
+    </div>
+{% endblock %}
+{%block content-page %}
+
+
+    <div class="jumbotron">
+      
+      <div class="navbar-form">
+        {% csrf_token %}
+        <div class="form-group"> 
+          <input id="dni" type="number" class="form-control" placeholder="Ingrese DNI">
+        </div>
+        <button  id="actualizar"  name="buscar" class="btn btn-default btn-success">Buscar/Modificar</button>
+      </div>
+
+       
+      <div id="respuesta">
+      </div>
+      <div id="respuestaprogramacion">
+      </div>
+
+    </div>
+
+
+
+{% endblock %}

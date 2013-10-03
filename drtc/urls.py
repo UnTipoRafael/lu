@@ -38,6 +38,12 @@ urlpatterns = patterns('',
 	url(r'^busca-dni/(?P<ndni>\d+)$','examen.views.busca_dni',name='busca_dni'),
 	url(r'^programa-dni/(?P<ndni>\d+)$','examen.views.programa_dni',name='programa_dni'),
 
+	# Registrador
+	url(r'^actualizar-datos/$','examen.views.actualizar_datos',name='actualizar_datos'),
+	url(r'^actualizar-datos/editar-dni/(?P<ndni>\d+)$','examen.views.editar_dni',name='editar_dni'),
+
+	# Fin Registrador
+
 
  	#url(r'^reprograma/(?P<ic>\d+)/(?P<f>\d+)/(?P<il>\d+)/(?P<t>\d+)/$','examen.views.reprograma_dni', name='reprograma'), 
 

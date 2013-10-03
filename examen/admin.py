@@ -13,6 +13,7 @@ from examen.models import Preguntas
 from examen.models import Respuestas
 
 from examen.models import Examen
+from examen.models import Ciudad
 
 
 admin.site.register(Lugar)
@@ -25,5 +26,6 @@ admin.site.register(Programacion)
 admin.site.register(Preguntas)
 admin.site.register(Respuestas)
 admin.site.register(Examen)
+admin.site.register(Ciudad)
 
 

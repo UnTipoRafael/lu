@@ -27,15 +27,13 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           
-          <div class="navbar-form navbar-left"  >
-            {% csrf_token %}
-            <div class="form-group"> 
-              <input id="dni" type="number" class="form-control" placeholder="Buscar DNI">
-            </div>
-            
-            <button  id="busca"  name="buscar" class="btn btn-default btn-success">Buscar</button>
- 
-            
+          <div class="nav navbar-nav"  >
+              
+            <li class="active"><a href={% url 'v_inicio' %}>Inicio</a></li>
+            <li><a href={% url 'actualizar_datos' %}>Actualizar Datos</a></li>
+            <li><a href="#">Reportes</a></li>
+            <li><a href="#">Buscar</a></li>
+      
             <!--
             <button  id="programa"  name="programar" class="btn btn-default btn-primary">Programar</button>
           -->
@@ -258,7 +256,13 @@
 
  
 
-
+<div class="navbar-form">
+  {% csrf_token %}
+  <div class="form-group"> 
+    <input id="dni" type="number" class="form-control" placeholder="Buscar DNI">
+  </div>
+  <button  id="busca"  name="buscar" class="btn btn-default btn-success">Buscar</button>
+</div>
 
  
 <div id="respuesta">

@@ -12,6 +12,16 @@ from examen.models import Ciudadano, Examen, Programacion, Registro
 #form
 from examen.form import form_login, form_user, CiudadanoForm , ProgramacionForm
 
+@login_required(login_url='/')
+def actualizar_datos(request):
+	grupo	= 	request.user.groups.all()[0].name 
+	if grupo=='registrador':
+		data = {}
+		data['mensaje'] = "actualizar datos"		
+		return render_to_response('actualizardatos.html',data,context_instance=RequestContext(request))
+	else:
+		return HttpResponseRedirect('/')
+
 def inicio(request):
 	if request.user.is_authenticated():
 		grupo	= 	request.user.groups.all()[0].name 
@@ -116,16 +126,45 @@ def programa_dni(request,ndni):
 		raise Http404	
 
 
-"""
-for i in p:
-...     if (i.fecha > date.today()):
-...         print '1 fe es mayor'
-...     elif(date.today()>i.fecha):
-...         print '2 fe es mayor'
-...     else:
-...         print 'error'
+def editar_dni(request,ndni):
+	if request.is_ajax:
+		datosdni = Ciudadano.objects.filter(dni=ndni)
+		mensaje = ''
+		data = list()
 
-"""
+		q = len(datosdni) #1/0
+		if q == 1:
+			mensaje = 'si'
+			estado = 't'
+			for elemento in datosdni:
+
+				data.append({
+					'estado':estado,					
+					'mensaje':mensaje,
+					'dni':ndni,
+					'nombres':			elemento.nombres,
+					'apellidos':		elemento.apellidos,
+					'telefono':			elemento.telefono,
+					'mobil':			elemento.mobil,
+					'fechanacimiento':	str(elemento.fecha_nacimiento),
+					'direccion':		elemento.direccion,
+					'email':			elemento.email,		
+					'ciudad':			str(elemento.ciudad),
+					})
+		else:
+			mensaje = 'no'
+			estado = 'f'
+			data.append({
+				'estado':estado,
+				'mensaje':mensaje,
+				})
+		return HttpResponse(
+			json.dumps({'dat':data}),
+			content_type="application/json; charset=uft8"
+			)
+
+	else:
+		raise Http404
 
 def busca_dni(request,ndni):
 	if request.is_ajax(): 
@@ -213,17 +252,6 @@ def busca_dni(request,ndni):
 								'nombrecompleto':nombrecompleto,
 							})
 
-			"""
-			for dato in datosdni:				
-				data.append({  
-					'mensaje': mensaje,
-					'idcito': dato.id,
-					'fechaexamen': str(pp.fecha),
-					'nombrecompleto': dato.nombres+" "+dato.apellidos,
-					})
-			"""
-
-
 		else:
 			mensaje = 'no'
 			estado = 'e'
@@ -231,9 +259,6 @@ def busca_dni(request,ndni):
 				'estado':estado,
 				'mensaje': mensaje,
 				})
-
-		 
-
 
 		return HttpResponse(
 			json.dumps({'datos':data}),

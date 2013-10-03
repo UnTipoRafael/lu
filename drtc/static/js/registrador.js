@@ -64,7 +64,7 @@ function programar_datos(data){
 
 
 function buscar_dni(){
-  var ndni = $('#dni').val();
+  var ndni = $('.navbar-form #dni').val();
   if(ndni != ''){
     if(ndni.length == 8){
       $.get('busca-dni/'+ndni,ver_datos);
@@ -72,13 +72,13 @@ function buscar_dni(){
     }
     else{
       alert('Formato de DNI: 8 Digitos');
-      $('#dni').val(''); 
+      $('.navbar-form #dni').val(''); 
       $('#respuesta').hide();
     }    
   }  
   else{
     alert('Ingrese un Valor');
-    $('#dni').val(''); 
+    $('.navbar-form #dni').val(''); 
     $('#respuesta').hide(); 
   }
 }

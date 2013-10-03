@@ -25,6 +25,12 @@ class Escuela(models.Model):
 	def __unicode__(self):
 		return self.nombre
 
+class Ciudad(models.Model):
+	nombre = models.CharField(max_length=200)
+	
+	def __unicode__(self):
+		return self.nombre
+
 class Clinica(models.Model):
 	nombre 				=models.CharField(max_length=200)
 	direccion			=models.CharField(max_length=200)
@@ -74,6 +80,7 @@ class Ciudadano(models.Model):
 	fecha_nacimiento	=models.DateField()
 	direccion			=models.CharField(max_length=200)
 	email				=models.EmailField()
+	ciudad 				=models.ForeignKey(Ciudad)
 
 	def __unicode__(self):
 		return self.nombres
