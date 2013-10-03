@@ -83,15 +83,6 @@ function buscar_dni(){
   }
 }
 
-function ver_datos(data){
-  var hts = $('#respuesta');
-  hts.html('');
-  $('#dni').val('');
-  $.each(data.datos, function(i, elemento){ 
-    
-  });
-}
-
 /*
 function ver_datos(data){
   var hts = $('#respuesta');
@@ -172,6 +163,7 @@ function ver_datos(data){
         +"</h3>"
         +"</div>"
         +"<div class='panel-body'>"
+        +"Fecha de Examen"+elemento.fechaexamen+"<br/>"
         +"N.Expediente: "+elemento.numeroexpediente+"<br/>"
         +"Intento: "+elemento.intentos+"<br/>"
         +"<button id='reguistra' data-toggle='modal'"
@@ -193,6 +185,7 @@ function ver_datos(data){
         +"</h3>"
         +"</div>"
         +"<div class='panel-body'>"
+        +"Fecha de Examen"+elemento.fechaexamen+"<br/>"
         +"N.Expediente: "+elemento.numeroexpediente+"<br/>"
         +"Intentos: "+elemento.intentos+"<br/>"
         +"<button id='reguistra' data-toggle='modal'"
@@ -238,9 +231,31 @@ function ver_datos(data){
         +" href='#ModalCiudadano'  type='button' name='reguistrar' "
         +" class='btn btn-default btn-primary'>"
         +" <span class='glyphicon glyphicon-plus-sign'></span>"
-        +" Reguistro"
+        +" Nuevo Expediente"
         +"</button>"
         +"</div></div>").appendTo(hts);
+    }
+    else if(elemento.estado=='f'){
+      $(
+        "<div class='panel panel-default'>"
+        +"<div class='panel-heading'>"
+        +"<h3 class='panel-title'>"
+        +elemento.nombrecompleto
+        +"</h3>"
+        +"</div>"
+        +"<div class='panel-body'>"
+        +"Fecha de Examen"+elemento.fechaexamen+"<br/>"
+        +"N.Expediente: "+elemento.numeroexpediente+"<br/>"
+        +"Intentos: "+elemento.intentos+"<br/>"
+        +"<button id='reguistra' data-toggle='modal'"
+        +" href='#ModalCiudadano'  type='button' name='reguistrar' "
+        +" class='btn btn-default btn-primary'>"
+        +" <span class='glyphicon glyphicon-file'></span>"
+        +" Reprogramar"
+        +"</button>"
+        +"</div>"
+        +"</div>"
+        ).appendTo(hts)
     }
     else{
       $('<p>ERROR</p>').appendTo(hts)

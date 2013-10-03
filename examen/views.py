@@ -160,32 +160,50 @@ def busca_dni(request,ndni):
 					pr = Registro.objects.filter(id_programacion=idpro)
 					for i in pr:
 						if (i.fecha_examen_medico > date.today()):
-							# Su examen aun es valido
-							if(intentos == 0):
-								# datos de su ultimo examen 
-								# y botonNExpediente
-								
+							# Su examen aun es valido por fecha de examen medico
+							
+							if (ultimo.fecha > date.today()):
+								# Reprogramo
 								fechaexamen = str(ultimo.fecha)
-								estado = 'b'
-								data.append({  
+								estado = 'f'
+								data.append({
 									'estado':estado,
 									'nombrecompleto':nombrecompleto,
 									'intentos':str(intentos),
 									'numeroexpediente':str(i.numero_expediente),
-									
+									'fechaexamen':fechaexamen,
 								})
-							elif(intentos >=1 & intentos <=2 ):
-								# Dato  examen 
-								# y Boton NRegistros
-								
-								estado = 'c'
-								data.append({  
-									'estado':estado,
-									'nombrecompleto':nombrecompleto,
-									'intentos':str(intentos),
-									'numeroexpediente':str(i.numero_expediente),
+							
+							elif(ultimo.fecha < date.today()):
+								# mando a nuevo reguistro y quito -1
+								if(intentos == 0):
+									# datos de su ultimo examen 
+									# y botonNExpediente
 									
-								})
+									fechaexamen = str(ultimo.fecha)
+									estado = 'b'
+									data.append({  
+										'estado':estado,
+										'nombrecompleto':nombrecompleto,
+										'intentos':str(intentos),
+										'numeroexpediente':str(i.numero_expediente),
+										'fechaexamen':fechaexamen,
+										
+									})
+								elif(intentos >=1 & intentos <=2 ):
+									# Dato  examen 
+									# y Boton NRegistros
+									fechaexamen = str(ultimo.fecha)
+									estado = 'c'
+									data.append({  
+										'estado':estado,
+										'nombrecompleto':nombrecompleto,
+										'intentos':str(intentos),
+										'numeroexpediente':str(i.numero_expediente),
+										'fechaexamen':fechaexamen,
+										
+									})
+
 
 						elif(i.fecha_examen_medico < date.today() or i.fecha_examen_medico == date.today() ):
 							# Su examen ya vencio/ NExpediente
