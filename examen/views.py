@@ -116,17 +116,6 @@ def programa_dni(request,ndni):
 		raise Http404	
 
 
-"""
-for i in p:
-...     if (i.fecha > date.today()):
-...         print '1 fe es mayor'
-...     elif(date.today()>i.fecha):
-...         print '2 fe es mayor'
-...     else:
-...         print 'error'
-
-"""
-
 def busca_dni(request,ndni):
 	if request.is_ajax(): 
 		# Busqueda de un ciudadano aqui mediante el DNI
@@ -142,11 +131,10 @@ def busca_dni(request,ndni):
 			mensaje = 'si'
 			for dato in datosdni:
 				nombrecompleto = dato.nombres+' '+dato.apellidos
-
 				pp = Programacion.objects.filter(id_ciudadano=dato.id)
+
 				if (len(pp) == 0):
-					#no existe algo programado mandar boton NExpediente
-					
+					#no existe algo programado mandar boton NExpediente					
 					estado = 'a'
 					data.append({  
 						'estado':estado,
@@ -156,15 +144,15 @@ def busca_dni(request,ndni):
 					#existen muchos rows programados cogemos el -pk[0] (ultimo)
 					ultimo = pp.order_by('-pk')[0]
 					intentos = ultimo.intentos
-					idpro = ultimo.pk
-					pr = Registro.objects.filter(id_programacion=idpro)
+					fechaexamen = str(ultimo.fecha)
+					pr = Registro.objects.filter(id_programacion=ultimo.pk)
+
 					for i in pr:
 						if (i.fecha_examen_medico > date.today()):
 							# Su examen aun es valido por fecha de examen medico
 							
 							if (ultimo.fecha > date.today()):
-								# Reprogramo
-								fechaexamen = str(ultimo.fecha)
+								# Reprogramo								
 								estado = 'f'
 								data.append({
 									'estado':estado,
@@ -177,33 +165,25 @@ def busca_dni(request,ndni):
 							elif(ultimo.fecha < date.today()):
 								# mando a nuevo reguistro y quito -1
 								if(intentos == 0):
-									# datos de su ultimo examen 
-									# y botonNExpediente
-									
-									fechaexamen = str(ultimo.fecha)
+									# datos de su ultimo examen  y botonNExpediente				
 									estado = 'b'
 									data.append({  
 										'estado':estado,
 										'nombrecompleto':nombrecompleto,
 										'intentos':str(intentos),
 										'numeroexpediente':str(i.numero_expediente),
-										'fechaexamen':fechaexamen,
-										
+										'fechaexamen':fechaexamen,										
 									})
 								elif(intentos >=1 & intentos <=2 ):
-									# Dato  examen 
-									# y Boton NRegistros
-									fechaexamen = str(ultimo.fecha)
+									# Dato  examen y Boton NRegistros									
 									estado = 'c'
 									data.append({  
 										'estado':estado,
 										'nombrecompleto':nombrecompleto,
 										'intentos':str(intentos),
 										'numeroexpediente':str(i.numero_expediente),
-										'fechaexamen':fechaexamen,
-										
+										'fechaexamen':fechaexamen,										
 									})
-
 
 						elif(i.fecha_examen_medico < date.today() or i.fecha_examen_medico == date.today() ):
 							# Su examen ya vencio/ NExpediente
@@ -213,17 +193,6 @@ def busca_dni(request,ndni):
 								'nombrecompleto':nombrecompleto,
 							})
 
-			"""
-			for dato in datosdni:				
-				data.append({  
-					'mensaje': mensaje,
-					'idcito': dato.id,
-					'fechaexamen': str(pp.fecha),
-					'nombrecompleto': dato.nombres+" "+dato.apellidos,
-					})
-			"""
-
-
 		else:
 			mensaje = 'no'
 			estado = 'e'
@@ -231,9 +200,6 @@ def busca_dni(request,ndni):
 				'estado':estado,
 				'mensaje': mensaje,
 				})
-
-		 
-
 
 		return HttpResponse(
 			json.dumps({'datos':data}),
