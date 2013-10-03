@@ -126,7 +126,7 @@ def programa_dni(request,ndni):
 		raise Http404	
 
 
-<<<<<<< HEAD
+
 def editar_dni(request,ndni):
 	if request.is_ajax:
 		datosdni = Ciudadano.objects.filter(dni=ndni)
@@ -167,8 +167,7 @@ def editar_dni(request,ndni):
 	else:
 		raise Http404
 
-=======
->>>>>>> 3393652de2d3fefd18ad17b905e77b215d46e086
+ 
 def busca_dni(request,ndni):
 	if request.is_ajax(): 
 		# Busqueda de un ciudadano aqui mediante el DNI
