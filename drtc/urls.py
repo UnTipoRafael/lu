@@ -41,9 +41,12 @@ urlpatterns = patterns('',
 	# Registrador
 	url(r'^actualizar-datos/$','examen.views.actualizar_datos',name='actualizar_datos'),
 	url(r'^actualizar-datos/editar-dni/(?P<ndni>\d+)$','examen.views.editar_dni',name='editar_dni'),
-
 	# Fin Registrador
 
+	# Reporte
+	url(r'^reporte/$','examen.views.reporte',name='reporte'),
+	#url(r'^actualizar-datos/editar-dni/(?P<ndni>\d+)$','examen.views.editar_dni',name='editar_dni'),
+	# Fin Reporte
 
  	#url(r'^reprograma/(?P<ic>\d+)/(?P<f>\d+)/(?P<il>\d+)/(?P<t>\d+)/$','examen.views.reprograma_dni', name='reprograma'), 
 

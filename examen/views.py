@@ -8,7 +8,7 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect,HttpResponse, Http404
 from django.contrib.auth.decorators import login_required
 #modelos
-from examen.models import Ciudadano, Examen, Programacion, Registro
+from examen.models import Ciudadano, Examen, Programacion, Registro, Ciudad
 #form
 from examen.form import form_login, form_user, CiudadanoForm , ProgramacionForm
 
@@ -21,6 +21,17 @@ def actualizar_datos(request):
 		return render_to_response('actualizardatos.html',data,context_instance=RequestContext(request))
 	else:
 		return HttpResponseRedirect('/')
+
+@login_required(login_url='/')
+def reporte(request):
+	grupo	= 	request.user.groups.all()[0].name 
+	if grupo=='registrador':
+		data = {}
+		data['mensaje'] = "reporte datos"		
+		return render_to_response('reporte.html',data,context_instance=RequestContext(request))
+	else:
+		return HttpResponseRedirect('/')	
+
 
 def inicio(request):
 	if request.user.is_authenticated():
@@ -128,10 +139,13 @@ def programa_dni(request,ndni):
 
 
 def editar_dni(request,ndni):
-	if request.is_ajax:
+	if request.is_ajax():
 		datosdni = Ciudadano.objects.filter(dni=ndni)
+		c = Ciudad.objects.all()
+
 		mensaje = ''
 		data = list()
+		ciudades = list()
 
 		q = len(datosdni) #1/0
 		if q == 1:
@@ -139,19 +153,27 @@ def editar_dni(request,ndni):
 			estado = 't'
 			for elemento in datosdni:
 
+				ciudades = ''
+				for i in range(0,len(c)):
+					ciudades = ciudades + "<option value='"+str(c[i].id)+"'>"+str(c[i])+"</option>"
+
 				data.append({
-					'estado':estado,					
-					'mensaje':mensaje,
-					'dni':ndni,
-					'nombres':			elemento.nombres,
-					'apellidos':		elemento.apellidos,
-					'telefono':			elemento.telefono,
-					'mobil':			elemento.mobil,
-					'fechanacimiento':	str(elemento.fecha_nacimiento),
-					'direccion':		elemento.direccion,
-					'email':			elemento.email,		
-					'ciudad':			str(elemento.ciudad),
-					})
+						'estado':estado,					
+						'mensaje':mensaje,
+						'dni':ndni,
+						'nombres':			elemento.nombres,
+						'apellidos':		elemento.apellidos,
+						'telefono':			elemento.telefono,
+						'mobil':			elemento.mobil,
+						'fechanacimiento':	str(elemento.fecha_nacimiento),
+						'direccion':		elemento.direccion,
+						'email':			elemento.email,		
+						'ciudad':			str(elemento.ciudad), 
+						'ciudades':			ciudades,
+					})	
+					
+
+
 		else:
 			mensaje = 'no'
 			estado = 'f'

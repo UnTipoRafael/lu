@@ -58,15 +58,11 @@ class Perfil(models.Model):
 										choices=roles,
 										default=(registrador))		
 
-	contrato_ingreso	=models.DateField(blank=True
-)
-	contrato_salida		=models.DateField(blank=True
-)
-	telefono			=models.CharField(max_length=200, blank=True
-)
+	contrato_ingreso	=models.DateField(blank=True)
+	contrato_salida		=models.DateField(blank=True)
+	telefono			=models.CharField(max_length=200, blank=True)
 	dni					=models.CharField(max_length=200)
-	direccion			=models.CharField(max_length=200, blank=True
-)
+	direccion			=models.CharField(max_length=200, blank=True)
 
 	def __unicode__(self):
 		return str(self.user.id)+" > "+self.rol
@@ -108,6 +104,11 @@ class Programacion(models.Model):
 		return str(self.id_ciudadano)+" "+str(self.intentos)+" Intento(s)"
 
 class Registro(models.Model): 
+
+	A1,A2A,A2B,A3A,A3B,A3C  = 'A1','A2A','A2B','A3A','A3B','A3C'
+	categorias = ((A1,'A1'),(A2A,'A2A'),(A2B,'A2B'),
+		(A3A,'A3A'),(A3B,'A3B'),(A3C,'A3C'))
+
 	id_programacion 	=models.ForeignKey(Programacion)
 	numero_registro		=models.IntegerField()
 	numero_expediente	=models.IntegerField()
@@ -116,7 +117,11 @@ class Registro(models.Model):
 	id_clinica			=models.ForeignKey(Clinica)
 	fecha_examen_medico =models.DateField()
 	asunto				=models.CharField(max_length=10)
+	categoria 			=models.CharField(max_length=2,
+										choices=categorias,
+										default=(A1))
 	
+
 	def __unicode__(self):
 		return str(self.numero_registro)+" > "+str(self.asunto)
 
