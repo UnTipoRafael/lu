@@ -43,21 +43,6 @@ class Clinica(models.Model):
 
 class Perfil(models.Model):
 	user = models.ForeignKey(User)
-	registrador= 're'
-	evaluador = 'ev'
-	administrador ='ad'
-	programador ='po'
-	roles= (
-		(registrador, 'Registrador'),
-		(evaluador, 'Evaluador'),
-		(programador, 'Programador'),
-		(administrador, 'Administrador'),
-	)
-
-	rol					=models.CharField(max_length=2,
-										choices=roles,
-										default=(registrador))		
-
 	contrato_ingreso	=models.DateField(blank=True)
 	contrato_salida		=models.DateField(blank=True)
 	telefono			=models.CharField(max_length=200, blank=True)

@@ -1,8 +1,9 @@
+# -*- coding: utf-8 -*-
 from django import forms
 
 from django.contrib.auth.models import User, Group
 from django.forms import ModelForm 
-from examen.models import Ciudadano ,Programacion
+from examen.models import Ciudadano ,Programacion ,Perfil
 from django.forms.widgets import TextInput, DateInput, DateTimeInput, TimeInput
 import datetime
 
@@ -50,8 +51,7 @@ class ProgramacionForm(ModelForm):
 
     def __unicode__(self):
         return str(self.fecha)
-
-
+'''
 class form_user(forms.Form):
     user        = forms.CharField(max_length='15')  
     password    = forms.CharField(max_length=128, widget=forms.PasswordInput)
@@ -66,3 +66,24 @@ class form_user(forms.Form):
     contrato_salida     = forms.CharField(widget=MyDateInput())
     telefono            = forms.CharField(max_length=20,widget=MyTelephoneInput())
     direccion           = forms.CharField(max_length=200)
+'''
+
+class form_user(ModelForm):
+    class Meta:
+        model=User
+        fields = (
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'password',
+            'groups', 
+            'is_active', 
+        )
+    username = forms.CharField(label='Usuario')
+    first_name = forms.CharField(label='Nombres')
+    last_name = forms.CharField(label='Apellidos')
+    email = forms.EmailField(label='E-Mail')
+    password = forms.CharField(label='Contraseña',widget=forms.PasswordInput)
+    groups = forms.ModelMultipleChoiceField(queryset=Group.objects.all(),label='Grupo')
+    is_active = forms.BooleanField(label='Activo')

@@ -51,10 +51,6 @@ def inicio(request):
 			return HttpResponseRedirect('/programador')
 			#return render_to_response('programador.html',{},context_instance=RequestContext(request))
 
-		elif grupo=='administrador':
-			return HttpResponseRedirect('/administrador')
-			#return render_to_response('administrador.html',{},context_instance=RequestContext(request))
-
 		elif grupo=='ciudadano':
 			return HttpResponseRedirect('/ciudadano')
 			#return render_to_response('ciudadano.html',{},context_instance=RequestContext(request))
@@ -66,6 +62,7 @@ def inicio(request):
 
 def ingreso(request):
 	if request.method=='POST':
+		print request.POST
 		form_usuario	=	request.POST['usuario']
 		form_password	=	request.POST['password']
 		acceso			=	authenticate(username=form_usuario,password=form_password)
@@ -323,8 +320,19 @@ def evaluador(request):
 def administrador(request):
 	grupo= request.user.groups.all()[0].name 
 	if grupo=='administrador':
-		form_add=form_user()
-		return render_to_response('administrador.html',{'form':form_add},context_instance=RequestContext(request))
+
+		
+		if request.method == "POST":
+			print request.POST
+			form_add=form_user(request.POST)
+		
+			if form_add.is_valid():
+				form_add.save()
+			
+			return HttpResponseRedirect('/')
+		else:
+			form_add=form_user()
+			return render_to_response('administrador.html',{'form':form_add},context_instance=RequestContext(request))
 
 	else:
 		return HttpResponseRedirect('/')
