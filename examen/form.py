@@ -80,10 +80,24 @@ class form_user(ModelForm):
             'groups', 
             'is_active', 
         )
-    username = forms.CharField(label='Usuario')
-    first_name = forms.CharField(label='Nombres')
-    last_name = forms.CharField(label='Apellidos')
-    email = forms.EmailField(label='E-Mail')
-    password = forms.CharField(label='Contraseña',widget=forms.PasswordInput)
-    groups = forms.ModelMultipleChoiceField(queryset=Group.objects.all(),label='Grupo')
-    is_active = forms.BooleanField(label='Activo')
+
+    username        = forms.CharField(label='Usuario',widget=forms.TextInput(attrs={'class':'form-control'}))
+    first_name      = forms.CharField(label='Nombres',widget=forms.TextInput(attrs={'class':'form-control'}))
+    last_name       = forms.CharField(label='Apellidos',widget=forms.TextInput(attrs={'class':'form-control'}))
+    email           = forms.EmailField(label='E-Mail',widget=forms.TextInput(attrs={'class':'form-control'}))
+    password        = forms.CharField(label='Contraseña',widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    groups          = forms.ModelMultipleChoiceField(queryset=Group.objects.all(),label='Grupo',widget=forms.SelectMultiple(attrs={'class':'form-control'}))
+    is_active       = forms.BooleanField(label='Activo',widget=forms.CheckboxInput(attrs={'class':'form-control'}))
+
+
+
+class form_perfil(ModelForm):
+    class meta:
+        model=Perfil
+        fields=(
+            'contrato_ingreso',
+            'contrato_salida' ,
+            'telefono',
+            'dni',
+            'direccion',
+            )

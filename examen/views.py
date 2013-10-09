@@ -8,9 +8,9 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect,HttpResponse, Http404
 from django.contrib.auth.decorators import login_required
 #modelos
-from examen.models import Ciudadano, Examen, Programacion, Registro, Ciudad
+from examen.models import Ciudadano, Examen, Programacion, Registro, Ciudad ,Perfil
 #form
-from examen.form import form_login, form_user, CiudadanoForm , ProgramacionForm
+from examen.form import form_login, form_user, form_perfil, CiudadanoForm , ProgramacionForm
 
 @login_required(login_url='/')
 def actualizar_datos(request):
@@ -324,14 +324,16 @@ def administrador(request):
 		
 		if request.method == "POST":
 			print request.POST
-			form_add=form_user(request.POST)
-		
-			if form_add.is_valid():
-				form_add.save()
-			
-			return HttpResponseRedirect('/')
+			if form_user(request.POST):
+				form_add=form_user(request.POST)
+				if form_add.is_valid():
+					form_add.save()
+			else:
+				pass
+			return HttpResponseRedirect('/administrador')
 		else:
-			form_add=form_user()
+			#form_p 		=form_perfil()
+			form_add	=form_user()
 			return render_to_response('administrador.html',{'form':form_add},context_instance=RequestContext(request))
 
 	else:

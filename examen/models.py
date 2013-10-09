@@ -50,7 +50,7 @@ class Perfil(models.Model):
 	direccion			=models.CharField(max_length=200, blank=True)
 
 	def __unicode__(self):
-		return str(self.user.id)+" > "+self.rol
+		return str(self.user.id)+" > "+self.dni
 
 class Ciudadano(models.Model):
 	nombres 			=models.CharField(max_length=200)
