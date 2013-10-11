@@ -8,16 +8,16 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect,HttpResponse, Http404
 from django.contrib.auth.decorators import login_required
 #modelos
-from examen.models import Ciudadano, Examen, Programacion, Registro, Ciudad ,Perfil
+from examen.models import Ciudadano, Examen, Programacion, Registro, Ciudad ,Perfil , Clinica, Escuela ,Lugar
 #form
-from examen.form import form_login, form_user, form_perfil, CiudadanoForm , ProgramacionForm
+from examen.form import form_login, form_user, form_perfil, CiudadanoForm , ProgramacionForm ,form_escuela, form_clinica,form_lugar
 
 @login_required(login_url='/')
 def actualizar_datos(request):
 	grupo	= 	request.user.groups.all()[0].name 
 	if grupo=='registrador':
 		data = {}
-		data['mensaje'] = "actualizar datos"		
+		data['mensaje'] = "actualizar datos"
 		return render_to_response('actualizardatos.html',data,context_instance=RequestContext(request))
 	else:
 		return HttpResponseRedirect('/')
@@ -320,57 +320,34 @@ def evaluador(request):
 def administrador(request):
 	grupo= request.user.groups.all()[0].name 
 	if grupo=='administrador':
-
-		
+	
 		if request.method == "POST":
-			print request.POST
+
 			if form_user(request.POST):
 				form_add=form_user(request.POST)
 				if form_add.is_valid():
 					form_add.save()
 			else:
-				pass
+				passis_valid
 			return HttpResponseRedirect('/administrador')
 		else:
+			users=User.objects.all()
 			#form_p 		=form_perfil()
 			form_add	=form_user()
-			return render_to_response('administrador.html',{'form':form_add},context_instance=RequestContext(request))
+			form_add_clinica	=form_clinica()
+			form_add_escuela	=form_escuela()
+			form_add_lugar		=form_lugar()
+			return render_to_response('administrador.html',{
+					'form':form_add,
+					'users':users,
+					'form_clinica':form_add_clinica,
+					'form_escuela':form_add_escuela,
+					'form_lugar':form_add_lugar,
+					},context_instance=RequestContext(request))
 
 	else:
 		return HttpResponseRedirect('/')
 
-#def add_usuario(request):
-def test(request):
-	form_add=form_user()
-	print form_add
-	if request.method=='POST':
-
-		usuario 	=request.POST['user']
-		password 	=request.POST['password']
-		active 		=request.POST['active']
-		nombre 		=request.POST['fistname']
-		apellido 	=request.POST['lastname']
-		dni 		=request.POST['dni']
-		email 		=request.POST['email']
-		grupo 		=request.POST['group']
-
-		contrato_ingreso 	=request.POST['contrato_ingreso']
-		contrato_salida 	=request.POST['contrato_salida']
-		telefono 			=request.POST['telefono']
-		direccion 			=request.POST['direccion']
-
-		user 				= User.objects.create_user(usuario, email, password)
-
-		if usuario and email and password:
-			user.save()
-			queryset=User.objects.all().get(dni=dni)
-
-			msg='Usuario no añadido'
-			print msg
-		return HttpResponseRedirect('/')
-
-	else:
-		return render_to_response('add_usuario.html',{'form':form_add},context_instance=RequestContext(request))
 
 @login_required(login_url='/')
 def evaluado(request):

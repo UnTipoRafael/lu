@@ -3,8 +3,8 @@ from django import forms
 
 from django.contrib.auth.models import User, Group
 from django.forms import ModelForm 
-from examen.models import Ciudadano ,Programacion ,Perfil
-from django.forms.widgets import TextInput, DateInput, DateTimeInput, TimeInput
+from examen.models import Ciudadano ,Programacion ,Perfil, Escuela, Clinica, Lugar
+from django.forms.widgets import TextInput, DateInput, DateTimeInput, TimeInput ,HiddenInput
 import datetime
 
 class MyEmailInput(TextInput):
@@ -89,6 +89,7 @@ class form_user(ModelForm):
     groups          = forms.ModelMultipleChoiceField(queryset=Group.objects.all(),label='Grupo',widget=forms.SelectMultiple(attrs={'class':'form-control'}))
     is_active       = forms.BooleanField(label='Activo',widget=forms.CheckboxInput(attrs={'class':'form-control'}))
 
+    form_name      = forms.CharField(widget=forms.HiddenInput(attrs={'class':'form-control', 'val':'usuario'}))
 
 
 class form_perfil(ModelForm):
@@ -101,3 +102,34 @@ class form_perfil(ModelForm):
             'dni',
             'direccion',
             )
+
+
+class form_clinica(ModelForm):
+    class Meta:
+        model=Clinica
+    nombre        = forms.CharField(label='Nombre',widget=forms.TextInput(attrs={'class':'form-control'}))
+    direccion     = forms.CharField(label='Direccion',widget=forms.TextInput(attrs={'class':'form-control'}))
+    telefono      = forms.CharField(label='Telefono',widget=forms.TextInput(attrs={'class':'form-control'}))
+    email         = forms.CharField(label='E-mail',widget=MyEmailInput(attrs={'class':'form-control'}))
+    form_name      = forms.CharField(widget=forms.HiddenInput(attrs={ 'val':'clinica'}))
+
+
+class form_escuela(ModelForm):
+    class Meta:
+        model=Escuela
+    nombre        = forms.CharField(label='Nombre',widget=forms.TextInput(attrs={'class':'form-control'}))
+    direccion     = forms.CharField(label='Direccion',widget=forms.TextInput(attrs={'class':'form-control'}))
+    telefono      = forms.CharField(label='Telefono',widget=forms.TextInput(attrs={'class':'form-control'}))
+    email         = forms.CharField(label='E-mail',widget=MyEmailInput(attrs={'class':'form-control'}))
+    form_name      = forms.CharField(widget=forms.HiddenInput(attrs={ 'val':'escuela'}))
+
+
+class form_lugar(ModelForm):
+    class Meta:
+        model=Lugar
+
+    nombres        = forms.CharField(label='Nombre',widget=forms.TextInput(attrs={'class':'form-control'}))
+    direccion      = forms.CharField(label='Direccion',widget=forms.TextInput(attrs={'class':'form-control'}))
+    telefono       = forms.CharField(label='Telefono',widget=forms.TextInput(attrs={'class':'form-control'}))
+    form_name      = forms.CharField(widget=forms.HiddenInput(attrs={ 'val':'lugar'}))
+
