@@ -89,7 +89,7 @@ class form_user(ModelForm):
     groups          = forms.ModelMultipleChoiceField(queryset=Group.objects.all(),label='Grupo',widget=forms.SelectMultiple(attrs={'class':'form-control'}))
     is_active       = forms.BooleanField(label='Activo',widget=forms.CheckboxInput(attrs={'class':'form-control'}))
 
-    form_name      = forms.CharField(widget=forms.HiddenInput(attrs={'class':'form-control', 'val':'usuario'}))
+    form_name      = forms.CharField(widget=forms.HiddenInput(attrs={'class':'form-control', 'value':'usuario'}))
 
 
 class form_perfil(ModelForm):
@@ -111,7 +111,7 @@ class form_clinica(ModelForm):
     direccion     = forms.CharField(label='Direccion',widget=forms.TextInput(attrs={'class':'form-control'}))
     telefono      = forms.CharField(label='Telefono',widget=forms.TextInput(attrs={'class':'form-control'}))
     email         = forms.CharField(label='E-mail',widget=MyEmailInput(attrs={'class':'form-control'}))
-    form_name      = forms.CharField(widget=forms.HiddenInput(attrs={ 'val':'clinica'}))
+    form_name      = forms.CharField(widget=forms.HiddenInput(attrs={ 'value':'clinica'}))
 
 
 class form_escuela(ModelForm):
@@ -121,7 +121,7 @@ class form_escuela(ModelForm):
     direccion     = forms.CharField(label='Direccion',widget=forms.TextInput(attrs={'class':'form-control'}))
     telefono      = forms.CharField(label='Telefono',widget=forms.TextInput(attrs={'class':'form-control'}))
     email         = forms.CharField(label='E-mail',widget=MyEmailInput(attrs={'class':'form-control'}))
-    form_name      = forms.CharField(widget=forms.HiddenInput(attrs={ 'val':'escuela'}))
+    form_name      = forms.CharField(widget=forms.HiddenInput(attrs={ 'value':'escuela'}))
 
 
 class form_lugar(ModelForm):
@@ -131,5 +131,5 @@ class form_lugar(ModelForm):
     nombres        = forms.CharField(label='Nombre',widget=forms.TextInput(attrs={'class':'form-control'}))
     direccion      = forms.CharField(label='Direccion',widget=forms.TextInput(attrs={'class':'form-control'}))
     telefono       = forms.CharField(label='Telefono',widget=forms.TextInput(attrs={'class':'form-control'}))
-    form_name      = forms.CharField(widget=forms.HiddenInput(attrs={ 'val':'lugar'}))
+    form_name      = forms.CharField(widget=forms.HiddenInput(attrs={ 'value':'lugar'}))
 

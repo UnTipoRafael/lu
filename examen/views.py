@@ -324,11 +324,34 @@ def administrador(request):
 		if request.method == "POST":
 
 			if form_user(request.POST):
-				form_add=form_user(request.POST)
-				if form_add.is_valid():
-					form_add.save()
+				a=request.POST
+				print request.POST
+				if a['form_name']=='usuario':
+					#del request.POST['form_name']
+					form_add=form_user(request.POST)
+					if form_add.is_valid():
+						form_add.save()
+
+				elif a['form_name']=='clinica':
+					#del request.POST['form_name']
+					form_add=form_clinica(request.POST)
+					if form_add.is_valid():
+						form_add.save()
+
+				elif a['form_name']=='escuela':
+					#del request.POST['form_name']
+					form_add=form_escuela(request.POST)
+					if form_add.is_valid():
+						form_add.save()
+
+				elif a['form_name']=='lugar':
+					#del request.POST['form_name']
+					form_add=form_lugar(request.POST)
+					if form_add.is_valid():
+						form_add.save()
+
 			else:
-				passis_valid
+				pass
 			return HttpResponseRedirect('/administrador')
 		else:
 			users=User.objects.all()
